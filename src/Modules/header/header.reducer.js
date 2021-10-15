@@ -1,5 +1,5 @@
 let INITIAL_STATE = {
-  header: ["testing"],
+  header: [],
 };
 
 export const addHeader = (itemsToAdd) => ({

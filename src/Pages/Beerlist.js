@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addHeader, resetHeader } from "../Modules/header/header.reducer";
+import { addModal, showModal } from "../Modules/modal/modal.reducer";
+import { addCart } from "../Modules/cart/cart.reducer";
 
 //import axios for get data from beerlist api
 import axios from "axios";
@@ -13,9 +15,12 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
+import { AddShoppingCart } from "@material-ui/icons";
+
+import Modal from "../components/modal/modal";
 
 //styled button by styled component
-const BeerListButton = styled.div`
+const BeerListResetButton = styled.div`
   color: black;
   backgruond-color: white;
   font-size: 15px;
@@ -25,7 +30,7 @@ const BeerListButton = styled.div`
   width: 5%;
   text-align: center;
   position: absolute;
-  top: 8%;
+  top: 12%;
   left: 10%;
   cursor: pointer;
   padding: 5px 10px;
@@ -41,7 +46,7 @@ const ToggleFilterButton = styled.div`
   width: 7%;
   text-align: center;
   position: absolute;
-  top: 8%;
+  top: 12%;
   left: 20%;
   cursor: pointer;
   padding: 5px 10px;
@@ -72,13 +77,14 @@ const FilterLabel = styled.label`
   font-size: 12px;
 `;
 
-const FilterActiveButton = styled.div`
+const FilterButton = styled.div`
   font-size: 12px;
   cursor: pointer;
   background-color: white;
   color: black;
   border: 1px solid black;
   padding: 5px 7px;
+  margin-bottom: 5px;
 `;
 
 const Beerlist = () => {
@@ -86,7 +92,21 @@ const Beerlist = () => {
   const [filter, setFilter] = useState([]);
   const [filterBox, setFilterBox] = useState(false);
   const column = [
-    { title: "name", field: "name" },
+    {
+      title: "name",
+      field: "name",
+      render: (row) => (
+        <div
+          onClick={() => {
+            dispatch(addModal(row));
+            dispatch(showModal());
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          {row.name}
+        </div>
+      ),
+    },
     { title: "contributed by", field: "contributed_by" },
     { title: "first brewed", field: "first_brewed" },
     { title: "tagline", field: "tagline" },
@@ -102,19 +122,38 @@ const Beerlist = () => {
     )),
   };
   const filterRef = useRef([]);
-  let filteredData = [];
   const dispatch = useDispatch();
   const header = useSelector((state) => state.header.header);
+  const modal = useSelector((state) => state.modal.visible);
+  let filteredData = [];
 
   //function for dispatch order changed header data to header redux
   const OnOrderChanged = () => {
     let beerHeaderList = [];
     const beerNow = document.querySelectorAll(".MuiTableSortLabel-root> div");
     for (let i = 0; i < beerNow.length; i++) {
-      beerHeaderList.push({
-        title: beerNow[i].innerText,
-        field: beerNow[i].innerText.replace(" ", "_"),
-      });
+      if (beerNow[i].innerText !== "name") {
+        beerHeaderList.push({
+          title: beerNow[i].innerText,
+          field: beerNow[i].innerText.replace(" ", "_"),
+        });
+      } else {
+        beerHeaderList.push({
+          title: beerNow[i].innerText,
+          field: beerNow[i].innerText.replace(" ", "_"),
+          render: (row) => (
+            <div
+              onClick={() => {
+                dispatch(addModal(row));
+                dispatch(showModal());
+              }}
+              style={{ cursor: "pointer" }}
+            >
+              {row.name}
+            </div>
+          ),
+        });
+      }
     }
     dispatch(addHeader(beerHeaderList));
   };
@@ -131,15 +170,12 @@ const Beerlist = () => {
   };
 
   const toggleFilter = () => {
-    setFilter([]);
     setFilterBox(!filterBox);
   };
 
-  const getRowData = (event, rowData) => {
-    console.log(rowData);
-  };
-
+  //function for filtering data when click filterbutton
   const activateFilter = () => {
+    setFilter([]);
     for (let i = 0; i < filterRef.current.length; i++) {
       if (filterRef.current[i].checked === true) {
         let filterValue = filterRef.current[i].value;
@@ -159,15 +195,18 @@ const Beerlist = () => {
     if (filteredData.length >= 2) {
       for (let i = 1; i < filteredData.length; i++) {
         let concatedFilteredData = filteredData[0].concat(filteredData[i]);
-        console.log(concatedFilteredData);
         setFilter(concatedFilteredData);
       }
     } else if (filteredData.length === 1) {
-      console.log(filteredData);
       setFilter(filteredData[0]);
     }
     setFilterBox(false);
     return filteredData;
+  };
+
+  //function for reset filters when click resetbutton
+  const resetFilter = () => {
+    setFilter([]);
   };
 
   useEffect(() => {
@@ -182,9 +221,29 @@ const Beerlist = () => {
         icons={tableIcons}
         onColumnDragged={OnOrderChanged}
         title="Beer List"
-        onRowClick={getRowData}
+        actions={[
+          (rowData) => {
+            return {
+              icon: AddShoppingCart,
+              tooltip: "add to cart",
+              onClick: () => {
+                dispatch(
+                  addCart({
+                    id: rowData.id,
+                    image_url: rowData.image_url,
+                    name: rowData.name,
+                  })
+                );
+              },
+            };
+          },
+        ]}
+        style={{ marginTop: "2%" }}
       ></MaterialTable>
-      <BeerListButton onClick={resetOrderOfHeader}>Reset Order</BeerListButton>
+      {modal ? <Modal /> : null}
+      <BeerListResetButton onClick={resetOrderOfHeader}>
+        Reset Order
+      </BeerListResetButton>
       <ToggleFilterButton onClick={toggleFilter}>
         Filter By ABV
       </ToggleFilterButton>
@@ -253,9 +312,8 @@ const Beerlist = () => {
             />
             11+
           </FilterLabel>
-          <FilterActiveButton onClick={activateFilter}>
-            Filter
-          </FilterActiveButton>
+          <FilterButton onClick={activateFilter}>Filter</FilterButton>
+          <FilterButton onClick={resetFilter}>Reset</FilterButton>
         </FilterContainer>
       ) : null}
     </>
