@@ -1,84 +1,18 @@
 import React from "react";
-import styled from "styled-components";
+import {
+  ModalContainer,
+  ModalImage,
+  ModalContentContainer,
+  ModalContents,
+  ModalSpan,
+  ModalStronger,
+  ModalLighter,
+  ModalDashedContainer,
+  ModalClose,
+} from "../../styles/components/modal.styles";
 
 import { useSelector, useDispatch } from "react-redux";
 import { hideModal } from "../../Modules/modal/modal.reducer";
-
-const ModalContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60%;
-  height: 80%;
-  background-color: white;
-  z-index: 20;
-  border: 3px solid black;
-  border-radius: 10%;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const ModalImage = styled.img`
-  width: 50%;
-  height: 30%;
-  margin: 5% 25%;
-`;
-
-const ModalContentContainer = styled.div`
-  width: 90%;
-  margin: 0 5%;
-  display: flex;
-  gap: 15%;
-`;
-
-const ModalContents = styled.div`
-  width: 40%;
-  margin-bottom: 3%;
-`;
-
-const ModalSpan = styled.span`
-  font-size: 15px;
-  font-weight: 700;
-`;
-
-const ModalStronger = styled.div`
-  font-size: 15px;
-  font-weight: 700;
-  margin-top: 2%;
-`;
-
-const ModalLighter = styled.div`
-  font-size: 13px;
-  font-weight: 300;
-  margin-top: 2%;
-`;
-
-const ModalDashedContainer = styled.div`
-  border-bottom: 1px dashed black;
-  text-align: center;
-  margin: 1% 0;
-  padding-top: 1%;
-  padding-bottom: 2%;
-`;
-
-const ModalClose = styled.button`
-  position: absolute;
-  font-weight: 900;
-  font-size: 30px;
-  background-color: white;
-  border: none;
-  top: 5%;
-  left: 3%;
-  cursor: pointer;
-`;
 
 const Modal = () => {
   const dispatch = useDispatch();

@@ -1,5 +1,8 @@
 import React from "react";
+import { GlobalStyle } from "./styles/theme";
 import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { ThemeProvider } from "styled-components";
 
 import Navigation from "./components/navigation/navigation";
 
@@ -8,16 +11,20 @@ import Beerlist from "./Pages/Beerlist";
 // import ReactGA from "react-ga";
 
 const Routes = () => {
+  const theme = useSelector((state) => state.darkmode.darkmode);
   return (
     <div>
-      <Navigation />
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-        <Route path="/home" component={Home} />
-        <Route exact path="/beerlist" component={Beerlist} />
-      </Switch>
+      <ThemeProvider theme={{ theme: theme }}>
+        <GlobalStyle />
+        <Navigation />
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/home" />
+          </Route>
+          <Route path="/home" component={Home} />
+          <Route exact path="/beerlist" component={Beerlist} />
+        </Switch>
+      </ThemeProvider>
     </div>
   );
 };

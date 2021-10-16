@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
-import styled from "styled-components";
+import {
+  BeerListResetButton,
+  ToggleFilterButton,
+  FilterContainer,
+  FilterCheckbox,
+  FilterLabel,
+  FilterButton,
+} from "../styles/pages/beerlist.styles";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addHeader, resetHeader } from "../Modules/header/header.reducer";
@@ -15,77 +22,11 @@ import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
-import { AddShoppingCart } from "@material-ui/icons";
+import { AddShoppingCart, CenterFocusStrong } from "@material-ui/icons";
 
 import Modal from "../components/modal/modal";
 
 //styled button by styled component
-const BeerListResetButton = styled.div`
-  color: black;
-  backgruond-color: white;
-  font-size: 15px;
-  line-height: 1.5;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 5%;
-  text-align: center;
-  position: absolute;
-  top: 12%;
-  left: 10%;
-  cursor: pointer;
-  padding: 5px 10px;
-`;
-
-const ToggleFilterButton = styled.div`
-  color: black;
-  background-color: white;
-  font-size: 15px;
-  line-height: 1.5;
-  border: 1px solid black;
-  border-radius: 10px;
-  width: 7%;
-  text-align: center;
-  position: absolute;
-  top: 12%;
-  left: 20%;
-  cursor: pointer;
-  padding: 5px 10px;
-  white-space: nowrap;
-`;
-
-const FilterContainer = styled.div`
-  position: absolute;
-  text-align: center;
-  z-index: 10;
-  width: 100px;
-  height: 200px;
-  top: 12%;
-  left: 20%;
-  background-color: white;
-  border: 3px solid black;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-`;
-
-const FilterCheckbox = styled.input`
-  color: black;
-`;
-
-const FilterLabel = styled.label`
-  color: black;
-  font-size: 12px;
-`;
-
-const FilterButton = styled.div`
-  font-size: 12px;
-  cursor: pointer;
-  background-color: white;
-  color: black;
-  border: 1px solid black;
-  padding: 5px 7px;
-  margin-bottom: 5px;
-`;
 
 const Beerlist = () => {
   const [data, setData] = useState();
@@ -107,7 +48,10 @@ const Beerlist = () => {
         </div>
       ),
     },
-    { title: "contributed by", field: "contributed_by" },
+    {
+      title: "contributed by",
+      field: "contributed_by",
+    },
     { title: "first brewed", field: "first_brewed" },
     { title: "tagline", field: "tagline" },
     { title: "ph", field: "ph" },
@@ -125,6 +69,7 @@ const Beerlist = () => {
   const dispatch = useDispatch();
   const header = useSelector((state) => state.header.header);
   const modal = useSelector((state) => state.modal.visible);
+  const darkmode = useSelector((state) => state.darkmode.darkmode);
   let filteredData = [];
 
   //function for dispatch order changed header data to header redux
@@ -238,7 +183,18 @@ const Beerlist = () => {
             };
           },
         ]}
-        style={{ marginTop: "2%" }}
+        style={{
+          marginTop: "2%",
+          fontSize: "1.5rem",
+        }}
+        options={{
+          headerStyle: {
+            fontSize: "1.6rem",
+          },
+          searchFieldStyle: {
+            display: "none",
+          },
+        }}
       ></MaterialTable>
       {modal ? <Modal /> : null}
       <BeerListResetButton onClick={resetOrderOfHeader}>

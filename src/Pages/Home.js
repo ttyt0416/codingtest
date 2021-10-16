@@ -1,26 +1,26 @@
 import React from "react";
-import styled from "styled-components";
+import {
+  Homepage,
+  HomepageWelcome,
+  HomepageContent,
+} from "../styles/pages/home.styles";
 
-//customed components by styled-components
-const Homepage = styled.div`
-  width: 100%;
-  height: 100%;
-  text-align: center;
-`;
-
-const HomepageContent = styled.p`
-  font-size: 15px;
-  font-weight: 700;
-  margin-top: 15%;
-`;
+import ImageSlide from "../components/image-slide/image-slide";
 
 const Home = () => {
+  const text =
+    "Welcome to Beerlist! you can search Beers for your choice by click Beerlist at upper box!";
+
+  const paragraph = text.split(" ");
+
   return (
     <Homepage>
-      <HomepageContent>
-        Welcome to Beerlist! you can search Beers for your choice by click
-        Beerlist at upper box!
-      </HomepageContent>
+      <ImageSlide />
+      <HomepageWelcome>
+        {paragraph.map((p, i) => (
+          <HomepageContent>{p}</HomepageContent>
+        ))}
+      </HomepageWelcome>
     </Homepage>
   );
 };
