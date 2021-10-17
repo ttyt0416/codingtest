@@ -6,8 +6,8 @@ import { ThemeProvider } from "styled-components";
 
 import Navigation from "./components/navigation/navigation";
 
-import Home from "./Pages/Home";
-import Beerlist from "./Pages/Beerlist";
+import Home from "./Pages/home";
+import Beerlist from "./Pages/beerlist";
 // import ReactGA from "react-ga";
 
 const Routes = () => {

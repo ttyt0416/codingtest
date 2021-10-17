@@ -3,7 +3,7 @@ import {
   Homepage,
   HomepageWelcome,
   HomepageContent,
-} from "../styles/pages/home.styles";
+} from "../styles/pages/home/home.styles";
 
 import ImageSlide from "../components/image-slide/image-slide";
 

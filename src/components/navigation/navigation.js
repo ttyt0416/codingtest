@@ -7,7 +7,7 @@ import {
   NavBarCart,
   NavBarCartLength,
   NavBarToggleDarkButton,
-} from "../../styles/components/navigation.styles";
+} from "../../styles/components/navigation/navigation.styles";
 
 import { useSelector, useDispatch } from "react-redux";
 import { toggleDarkmode } from "../../Modules/darkmode/darkmode.reducer";
@@ -39,7 +39,7 @@ const Navigation = () => {
       <NavBar>
         <NavBarLeft>
           <NavBarLink to="/home">Home</NavBarLink>
-          <NavBarLink to="/beerlist">Beer</NavBarLink>
+          <NavBarLink to="/beerlist">Beerlist</NavBarLink>
         </NavBarLeft>
         <NavBarRight>
           <NavBarCart onClick={toggleCart}>

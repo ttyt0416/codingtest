@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ChevronLeft, ChevronRight } from "@material-ui/icons";
+import { responsive } from "../../theme";
 
 export const ImageControl = styled.div`
   position: absolute;
@@ -10,6 +11,10 @@ export const ImageControl = styled.div`
   justify-content: space-between;
   display: flex;
   opacity: 0;
+
+  @media ${responsive.tablet} {
+    display: none;
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -17,7 +22,7 @@ export const ImageContainer = styled.div`
   height: 40rem;
 
   &:hover ${ImageControl} {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 `;
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { backgroundColor, textColor } from "../theme";
+import { backgroundColor, textColor } from "../../theme";
 
 export const Cart = styled.div`
   width: 200px;
@@ -10,7 +10,7 @@ export const Cart = styled.div`
   background-color: ${backgroundColor};
   border: 3px solid ${textColor};
   border-radius: 4px;
-  z-index: 20;
+  z-index: 30;
   overflow-y: auto;
   overflow-x: hidden;
 

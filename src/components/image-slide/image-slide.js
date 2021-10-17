@@ -5,7 +5,7 @@ import {
   Image,
   ImagePrev,
   ImageNext,
-} from "../../styles/components/image-slide.styles";
+} from "../../styles/components/image-slide/image-slide.styles";
 
 const ImageSlide = () => {
   const imageList = [
@@ -16,27 +16,26 @@ const ImageSlide = () => {
     "https://images.unsplash.com/photo-1597290282695-edc43d0e7129?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1175&q=80",
   ];
   let [order, setOrder] = useState(0);
+  let [touchStartLocation, setTouchStartLocation] = useState();
+  let [touchEndLocation, setTouchEndLocation] = useState();
   const images = document.getElementsByTagName("img");
 
   const initImage = () => {
     setOrder(0);
-    for (let i = 1; i < images.length; i++) {
+    for (let i = 0; i < images.length; i++) {
       images[i].style.opacity = 0;
+      images[i].addEventListener("touchstart", (event) => {
+        setTouchStartLocation(event.targetTouches[0].clientX);
+      });
+      images[i].addEventListener("touchend", (event) => {
+        setTouchEndLocation(event.changedTouches[0].clientX);
+      });
     }
+    images[0].style.opacity = 1;
   };
 
-  //   const nextImage = () => {
-  //     setOrder(order + 1);
-  //     images[order % 5].style.display = "block";
-  //     if ((order % 5) - 1 <= -1) {
-  //       images[4].style.display = "none";
-  //     } else {
-  //       images[(order % 5) - 1].style.display = "none";
-  //     }
-  //   };
-
   const nextImage = () => {
-    setOrder(order === 4 ? 0 : order + 1);
+    setOrder(order === 4 ? (order = 0) : (order += 1));
     for (let i = 0; i < images.length; i++) {
       images[i].style.opacity = 0;
     }
@@ -44,11 +43,20 @@ const ImageSlide = () => {
   };
 
   const prevImage = () => {
-    setOrder(order === 0 ? 4 : order - 1);
+    setOrder(order === 0 ? (order = 4) : (order -= 1));
     for (let i = 0; i < images.length; i++) {
       images[i].style.opacity = 0;
     }
     images[order].style.opacity = 1;
+  };
+
+  const imageTouchEnd = () => {
+    let touchTrigger = touchStartLocation - touchEndLocation;
+    if (touchTrigger > 30) {
+      nextImage();
+    } else if (touchTrigger < -30) {
+      prevImage();
+    }
   };
 
   useEffect(() => {
@@ -58,7 +66,7 @@ const ImageSlide = () => {
   return (
     <ImageContainer>
       {imageList.map((img, i) => (
-        <Image alt="" src={img} />
+        <Image alt="" src={img} onTouchEnd={imageTouchEnd} />
       ))}
       <ImageControl>
         <ImagePrev onClick={prevImage} />

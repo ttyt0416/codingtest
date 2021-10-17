@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { backgroundColor, textColor } from "../theme";
+import { backgroundColor, textColor, responsive } from "../../theme";
 
 export const ModalContainer = styled.div`
   position: absolute;
@@ -21,6 +21,10 @@ export const ModalContainer = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media ${responsive.tablet} {
+    width: 90%;
   }
 `;
 

@@ -9,7 +9,7 @@ import {
   CartItemQuantity,
   ModifyCartItemQuantity,
   ResetCartItemsButton,
-} from "../../styles/components/cart-dropdown.styles";
+} from "../../styles/components/cart-dropdown/cart-dropdown.styles";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addCart, removeCart, clearAll } from "../../Modules/cart/cart.reducer";

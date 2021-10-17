@@ -11,6 +11,11 @@ export const textColor = theme("theme", {
   dark: "#fff",
 });
 
+export const responsive = {
+  mobile: "(max-width: 757px)",
+  tablet: "(max-width: 1023px)",
+};
+
 export const GlobalStyle = createGlobalStyle`
 html {
   font-size: 62.5%;
@@ -56,6 +61,10 @@ body {
 }
 
 .MuiInput-underline {
+  
+  @media ${responsive.mobile} {
+    font-size: 1rem !important;
+  }
 
   &:before {
     border-bottom: 1px solid ${textColor} !important;
@@ -73,6 +82,10 @@ th {
 table {
   background-color: ${backgroundColor};
   color: ${textColor};
+
+  @media ${responsive.mobile} {
+    margin-top: 4rem;
+  }
 }
 
 span {

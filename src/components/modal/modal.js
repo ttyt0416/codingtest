@@ -9,7 +9,7 @@ import {
   ModalLighter,
   ModalDashedContainer,
   ModalClose,
-} from "../../styles/components/modal.styles";
+} from "../../styles/components/modal/modal.styles";
 
 import { useSelector, useDispatch } from "react-redux";
 import { hideModal } from "../../Modules/modal/modal.reducer";

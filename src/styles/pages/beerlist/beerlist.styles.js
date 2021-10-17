@@ -1,5 +1,24 @@
 import styled from "styled-components";
-import { backgroundColor, textColor } from "../theme";
+import { backgroundColor, textColor, responsive } from "../../theme";
+
+export const BeerListButtonContainer = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  top: 11%;
+  left: 8%;
+  z-index: 20;
+
+  @media ${responsive.tablet} {
+    top: 6.5%;
+    left: 15%;
+  }
+
+  @media ${responsive.mobile} {
+    top: 13%;
+    left: 3%;
+  }
+`;
 
 export const BeerListResetButton = styled.div`
   color: ${textColor};
@@ -10,11 +29,10 @@ export const BeerListResetButton = styled.div`
   border-radius: 10px;
   width: 5%;
   text-align: center;
-  position: absolute;
-  top: 11%;
-  left: 10%;
   cursor: pointer;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
+  white-space: nowrap;
+  width: 30%;
 `;
 
 export const ToggleFilterButton = styled.div`
@@ -26,12 +44,12 @@ export const ToggleFilterButton = styled.div`
   border-radius: 10px;
   width: 7%;
   text-align: center;
-  position: absolute;
-  top: 11%;
-  left: 20%;
   cursor: pointer;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
   white-space: nowrap;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const FilterContainer = styled.div`
@@ -41,12 +59,22 @@ export const FilterContainer = styled.div`
   width: 10rem;
   height: 20rem;
   top: 16%;
-  left: 21%;
+  left: 16%;
   background-color: ${backgroundColor};
-  border: 3px solid ${textColor};
+  border: 2px solid ${textColor};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+
+  @media ${responsive.tablet} {
+    top: 11%;
+    left: 33%;
+  }
+
+  @media ${responsive.mobile} {
+    top: 19%;
+    left: 38%;
+  }
 `;
 
 export const FilterCheckbox = styled.input`

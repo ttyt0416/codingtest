@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, forwardRef } from "react";
 import {
+  BeerListButtonContainer,
   BeerListResetButton,
   ToggleFilterButton,
   FilterContainer,
   FilterCheckbox,
   FilterLabel,
   FilterButton,
-} from "../styles/pages/beerlist.styles";
+} from "../styles/pages/beerlist/beerlist.styles";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addHeader, resetHeader } from "../Modules/header/header.reducer";
@@ -206,12 +207,14 @@ const Beerlist = () => {
         }}
       ></MaterialTable>
       {modal ? <Modal /> : null}
-      <BeerListResetButton onClick={resetOrderOfHeader}>
-        Reset Order
-      </BeerListResetButton>
-      <ToggleFilterButton onClick={toggleFilter}>
-        Filter By ABV
-      </ToggleFilterButton>
+      <BeerListButtonContainer>
+        <BeerListResetButton onClick={resetOrderOfHeader}>
+          Reset Order
+        </BeerListResetButton>
+        <ToggleFilterButton onClick={toggleFilter}>
+          Filter By ABV
+        </ToggleFilterButton>
+      </BeerListButtonContainer>
       {filterBox === true ? (
         <FilterContainer>
           <FilterLabel>
