@@ -38,27 +38,6 @@ body {
   color: ${textColor} !important;
 }
 
-th {
-  background-color: ${backgroundColor} !important;
-  color: ${textColor} !important;
-}
-
-table {
-  background-color: ${backgroundColor};
-  color: ${textColor};
-}
-
-span {
-  color: ${textColor} !important;
-}
-
-
-
-path {
-  color: ${textColor};
-  padding-left: 10px;
-}
-
 .MuiToolbar-root {
   color: ${textColor};
   font-size: 1.2rem !important;
@@ -75,5 +54,35 @@ path {
 .MuiTypography-h6 {
   font-size: 2rem !important;
 }
+
+.MuiInput-underline {
+
+  &:before {
+    border-bottom: 1px solid ${textColor} !important;
+  }
+  &:after {
+    border-bottom: 2px solid ${textColor} !important;
+  }
+}
+
+th {
+  background-color: ${backgroundColor} !important;
+  color: ${textColor} !important;
+}
+
+table {
+  background-color: ${backgroundColor};
+  color: ${textColor};
+}
+
+span {
+  color: ${textColor} !important;
+}
+
+path {
+  color: ${textColor};
+  padding-left: 10px;
+}
+
 
 `;

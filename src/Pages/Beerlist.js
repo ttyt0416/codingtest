@@ -18,11 +18,14 @@ import axios from "axios";
 
 //import components from material-table
 import MaterialTable from "material-table";
+import ArrowDownward from "@material-ui/icons/ArrowDownward";
+import Clear from "@material-ui/icons/Clear";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import FirstPage from "@material-ui/icons/FirstPage";
 import LastPage from "@material-ui/icons/LastPage";
-import { AddShoppingCart, CenterFocusStrong } from "@material-ui/icons";
+import Search from "@material-ui/icons/Search";
+import { AddShoppingCart } from "@material-ui/icons";
 
 import Modal from "../components/modal/modal";
 
@@ -63,6 +66,11 @@ const Beerlist = () => {
     NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
     PreviousPage: forwardRef((props, ref) => (
       <ChevronLeft {...props} ref={ref} />
+    )),
+    Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
+    ResetSearch: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
+    SortArrow: forwardRef((props, ref) => (
+      <ArrowDownward {...props} ref={ref} />
     )),
   };
   const filterRef = useRef([]);
@@ -192,7 +200,8 @@ const Beerlist = () => {
             fontSize: "1.6rem",
           },
           searchFieldStyle: {
-            display: "none",
+            fontSize: "1.5rem",
+            color: `${darkmode === "dark" ? "white" : "black"}`,
           },
         }}
       ></MaterialTable>
